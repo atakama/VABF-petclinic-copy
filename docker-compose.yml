@@ -1,4 +1,17 @@
 services:
+  petclinic:
+    container_name: ph_vabf
+    image: "registry.atakama-technologies.com/vabf_petclinic:jdk21-1.1"
+    build:  
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    volumes:
+      - "./agent/:/spring-petclinic/nudge-agent"
+    networks:
+      - vabf-nudge
+      
   mysql:
     image: mysql:8.4
     ports:
@@ -23,3 +36,9 @@ services:
       - POSTGRES_DB=petclinic
     profiles:
       - postgres
+
+networks:
+  vabf-nudge:
+    ipam:
+      config:
+        - subnet: "172.42.0.0/16"
