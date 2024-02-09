@@ -1,6 +1,6 @@
-FROM tomcat:7-jdk8-adoptopenjdk-hotspot
+FROM tomcat:jdk21
 
-RUN apt-get -y update && apt-get -y upgrade && apt-get -y install git
+RUN apt-get -y update && apt-get -y upgrade && apt-get -y install git iputils-ping
 COPY petclinic/ /spring-petclinic
 RUN  cd /spring-petclinic && ./mvnw package
 WORKDIR /spring-petclinic

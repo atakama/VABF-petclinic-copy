@@ -21,7 +21,8 @@ Le résultat attendu est la liste des images présentes sur le registre. Par exe
 Les paramètres suivants sont modifiables :
 - `ports : "8080:8080"` : Ports exposés par le conteneur. (Ne pas modifier la partie de droite)
 - `volumes: "./agent/:/spring-petclinic/nudge-agent"` : Volume de la sonde PH Nudge. Permet aussi le stockage et le visionnage des logs. (Ne pas modifier la partie de droite)
-- `vabf-nudge: ipam: config: subnet: "172.42.0.0/16"` : Sous-réseau du conteneur. Ne modifier qu'en cas de conflits.
+
+Variables d'environn
 
 ### Configuration de la sonde PH Nudge Java
 
