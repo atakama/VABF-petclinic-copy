@@ -16,4 +16,11 @@ _site/
 *.css
 !petclinic.css
 
-agent/
+nudge-agent/
+nudge/
+controller-config.properties
+nudge*.log
+nudge-conf-prod.zip
+nudge.jar
+nudge.properties
+nudge.zip

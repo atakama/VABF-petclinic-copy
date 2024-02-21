@@ -1,4 +1,4 @@
-FROM tomcat:jdk21
+FROM tomcat:jdk8
 
 RUN apt-get -y update && apt-get -y upgrade && apt-get -y install git iputils-ping
 COPY petclinic/ /spring-petclinic
