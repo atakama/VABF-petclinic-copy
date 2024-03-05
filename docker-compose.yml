@@ -5,12 +5,10 @@ services:
     build:  
       context: .
       dockerfile: Dockerfile
-      args:
-        - NUDGE_VABF_AGENT_FOLDER=${NUDGE_VABF_AGENT_FOLDER:-./agent/}
     ports:
       - "8082:8080"
     volumes:
-      - "./agent/:/spring-petclinic/nudge-agent"
+      - "./nudge-agent/:/spring-petclinic/nudge-agent"
     networks:
       - vabf-nudge
       
