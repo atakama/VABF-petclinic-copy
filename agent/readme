@@ -1,0 +1,22 @@
+A LIRE ATTENTIVEMENT AVANT DE COMMENCER
+1. 	Ouvrir le ficher nudge.properties qui se trouve dans le même dossier
+2.	Renseigner le paramètre server_url en mettant l'url POWERHOUSE Nudge vers laquelle les données collectées par l'agent seront envoyées.
+	L'url est de la forme https://ph-apm.[nom_du_client].atakama-technologies.com. Si vous ne la connaissez pas, veuillez contacter notre 
+	support https://support-logiciels.atakama-technologies.com/pages/UI.php .
+3. 	Les paramètres app_id et server_url sont les deux seuls indispensables au fonctionnement correct de l'agent.
+	Cependant, plusieurs autres paramètres permettent d'ajouter des options à l'agent pour améliorer la collecte des informations
+	et l'utilisation de l'agent. Ces paramètres sont par défaut activés. Vous pouvez adapter cette configuration à votre application. 
+4. 	Voici le lien de la documentation qui décrit l'impact et l'utilité de tous les paramètres disponibles pour l'agent : https://nudge-apm.com/config-probe-java_fr
+
+
+
+
+README BEFORE YOU START
+1. 	Open the nudge.properties file which is in the same folder
+2. 	Set the server_url parameter by putting the POWERHOUSE Nudge url to which the collected data by agent will be sent.
+	The url is formatted as follows https://ph-apm.[customer_name].atakama-technologies.com. If you do not know it, please contact our 
+	support https://support-logiciels.atakama-technologies.com/pages/UI.php .
+3. 	app_id and server_url are the only settings that are necessary for the agent to work properly.
+	However, there are several other settings that allow you to add options to the agent in order to improve the agent use. These settings 
+	are enabled by default. You can adapt this configuration to your application.
+4. 	Here is the link to the documentation that describes the impact and usefulness of all agent's parameters : https://nudge-apm.com/config-probe-java

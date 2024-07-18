@@ -1,8 +1,7 @@
 services:
-  petclinic:
-    profiles : ['', java17]
-    container_name: "ph_vabf"
-    image: "registry.atakama-technologies.com/vabf_petclinic:1.2-3.3.0-jre17"
+  petclinic-base:
+    profiles: [do-not-use]
+    image: "registry.atakama-technologies.com/vabf_petclinic:${VABF_VERSION:-1.2}-${PETCLINIC_VERSION:-3.3.0}-jre${JAVA_VERSION:-17}"
     build:  
       context: .
       dockerfile: Dockerfile
@@ -10,12 +9,13 @@ services:
       args:
         - BUILD_IMAGE=8.9.0-jdk17-jammy
         - RUN_TOMCAT_IMAGE=10.1.24-jre17-temurin-jammy
+        - AGENT_FOLDER=/usr/bin/nudge
     environment:
       - DB_PROFILE=${DB_PROFILE:-h2}
     ports:
       - "8082:8080"
     volumes:
-      - "./nudge-agent/:/spring-petclinic/nudge-agent"
+      - "./agent/:/usr/bin/nudge"
     deploy:
       resources:
         limits:
@@ -24,16 +24,36 @@ services:
     networks:
       - vabf-net
 
+
+
+  petclinic:
+    profiles: ['']
+    container_name: "ph_vabf"
+    extends:
+      service: petclinic-base
+
   petclinic-java8:
     profiles: [java8]
+    container_name: "ph_vabf_java8"
     extends:
       service: petclinic
-    image: "registry.atakama-technologies.com/vabf_petclinic:1.2-2.7.3-jre8"
-    container_name: "ph_vabf_java8"
-    build:  
+    build:
       args:
         - BUILD_IMAGE=8.9.0-jdk8-jammy
         - RUN_TOMCAT_IMAGE=9.0.89-jre8-temurin-jammy
+
+
+  petclinic-mysql:
+    profiles: [mysql]
+    container_name: "ph_vabf_mysql"
+    extends:
+      service: petclinic-base
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_URL=jdbc:mysql://mysql/petclinic
+      - MYSQL_USER=petclinic
+      - MYSQL_PASS=petclinic
 
   mysql:
     profiles: [mysql]
@@ -47,8 +67,6 @@ services:
       - MYSQL_USER=petclinic
       - MYSQL_PASSWORD=petclinic
       - MYSQL_DATABASE=petclinic
-    volumes:
-      - "./conf.d:/etc/mysql/conf.d:ro"
     networks:
       - vabf-net
 
