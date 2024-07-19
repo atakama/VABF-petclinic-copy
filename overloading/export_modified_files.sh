@@ -3,7 +3,7 @@
 # Définir les variables
 REPO_URL="https://github.com/atakama/VABF-petclinic-copy"
 JAVA8_COMMIT="9ecdc1111e3da388a750ace41a125287d9620534"
-LAST_COMMIT="origin/HEAD"
+LAST_COMMIT="d8fcd11e677102a795326ef73df09b50a646f849"
 OUTPUT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )/java8
 
 # Créer le répertoire de sortie
