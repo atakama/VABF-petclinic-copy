@@ -22,6 +22,17 @@ list_files_in_java17() {
   git diff --name-only "${JAVA8_COMMIT}" "${JAVA17_COMMIT}"
 }
 
+# Fonction pour lister les fichiers supprimés (présents dans Java 8 mais non dans Java 17)
+list_deleted_files() {
+  git diff --name-only --diff-filter=D "${JAVA8_COMMIT}" "${JAVA17_COMMIT}"
+}
+
+# Fonction pour vérifier si un fichier est dans le projet
+file_exists_in_project() {
+  local file="$1"
+  [ -f "${PROJECT_DIR}/${file}" ]
+}
+
 # Fonction pour échanger les fichiers
 swap_files() {
   echo "Échange des fichiers..."
@@ -72,24 +83,14 @@ restore_files() {
     fi
   done < "${LIST_FILE}"
 
-  # Supprimer les fichiers spécifiques à Java 17 qui ont été sauvegardés et ne sont pas présents dans Java 8
-  echo "Supprimer les fichiers spécifiques à Java 17..."
-  for relative_path in $(list_files_in_java17); do
-    project_file="${PROJECT_DIR}/${relative_path}"
-    if [ -f "${project_file}" ] && [ ! -f "${JAVA8_DIR}/${relative_path}" ]; then
-      echo "Supprimer le fichier : ${relative_path}"
-      rm "${project_file}"
-    fi
-  done
-
-  # Supprimer les fichiers spécifiques à Java 17 qui n'existent pas dans Java 8 mais sont présents dans Java 17
-  echo "Supprimer les fichiers qui n'existent pas dans Java 8..."
-  while IFS= read -r relative_path; do
-    if [ ! -f "${JAVA8_DIR}/${relative_path}" ] && [ -f "${PROJECT_DIR}/${relative_path}" ]; then
+  # Supprimer les fichiers qui ont été supprimés dans Java 17 (ceux de Java 8 non présents dans Java 17)
+  echo "Supprimer les fichiers supprimés..."
+  for relative_path in $(list_deleted_files); do
+    if file_exists_in_project "${relative_path}"; then
       echo "Supprimer le fichier : ${relative_path}"
       rm "${PROJECT_DIR}/${relative_path}"
     fi
-  done < "${LIST_FILE}"
+  done
 
   # Supprimer le fichier de liste après restauration
   rm "${LIST_FILE}"
